@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block page_title %}ログアウト{% endblock %}
+{% block page_header %}ログアウト{% endblock %}
+
+{% block content %}
+	<p>ゲームを終了しました!</p>
+	<p>また遊びに来てください!</p>
+	
+	
+<p><a href="{% url 'login' %}">再ログイン</a></p>
+{% endblock %}

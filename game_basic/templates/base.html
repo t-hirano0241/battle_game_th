@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ja">
+<head>
+   {# ここで共通の CSS は読み込んでも OK #}
+  <!-- <link href="{% static 'css/common.css' %}" rel="stylesheet"> -->
+
+  {# ページごとに追加の CSS を差し込む場所 #}
+  {% block extra_css %}{% endblock %}
+
+       <!-- →/static/css/basic.css/となっている -->
+  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <link href="https://appsol-one.com/custom/00-page/top/nes.min.css" rel="stylesheet" />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+    rel="stylesheet"
+  >
+   <!-- <link
+    href="{% static 'css/game.css' %}"
+    rel="stylesheet"
+  > -->
+  <title>
+    バトルゲーム_TH({% block page_title %}{% endblock %})
+  </title>
+</head>
+<body>
+	<header>
+	<h1>{% block page_header %}{% endblock %}</h1>
+	</header>
+	<main>
+  <div id="content">
+    {% block content %}{% endblock %}
+  </div>
+  </main>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

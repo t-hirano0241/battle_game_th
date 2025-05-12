@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block page_title %}ログイン{% endblock %}
+{% block page_header %}ログイン{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <button type="submit">ログイン</button>
+  </form>
+
+  <p>アカウントをお持ちでない方は下記のボタンから、新規登録を行ってください!</p>
+  <a href="{% url 'login_app:signup_create' %}">新規登録</a>
+
+
+  <p>パスワードを忘れた方は下記のボタンから、パスワードの再設定をしてください</p>
+ <a href="{% url 'password_reset' %}">パスワード再設定</a>
+
+{% endblock %}

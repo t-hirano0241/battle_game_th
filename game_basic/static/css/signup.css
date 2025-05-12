@@ -1,0 +1,114 @@
+/* ─── 全体背景・フォント設定 ─── */
+body {
+  /* 背景画像を全画面にフィット */
+  background: url("/static/images/bg-game.jpg") no-repeat center center fixed;
+  background-size: cover;
+
+  /* レトロピクセル風フォント＆文字色 */
+  font-family: 'Press Start 2P', monospace;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000;
+  margin: 0;
+}
+
+/* ─── コンテント部の最大幅とセンタリング ─── */
+#content {
+  max-width: 850px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* ─── サインアップフォーム全体 ─── */
+.signup-form {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+/* ─── 見出し（タイトル）的なテキスト ─── */
+h1,
+.signup-title {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* ─── テーブルレイアウト調整 ─── */
+.signup-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 1rem;  /* 行間を 1rem 空ける */
+  table-layout: fixed;      /* 列幅固定で揃える */
+}
+
+/* ラベル列 */
+.signup-table th {
+  width: 30%;
+  vertical-align: top;
+  text-align: center;
+  padding-right: 0.5rem;
+  color: #fff;
+}
+
+/* 入力欄列 */
+.signup-table td {
+  width: 70%;
+  padding-left: 0.5rem;
+  position: relative;       /* アイコントグル用 */
+}
+
+/* ─── 入力フィールドのスタイル ─── */
+.signup-table input[type="text"],
+.signup-table input[type="password"] {
+  width: 100%;
+  background: #222;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 0.5rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+
+#password1{
+    position: relative;
+}
+
+span{
+    position: absolute;
+    top:15px;
+    right:30px
+}
+
+/* ヘルプテキスト */
+.help {
+  color: #ddd;
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+  font-family: "Noto Sans JP", Arial, sans-serif;
+}
+
+/* ─── 目玉アイコントグル ─── */
+.toggle-eye {
+  position: absolute;
+  right: 30px;
+  top: 15px;
+  font-size: 1.2rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ─── ボタン ─── */
+button {
+  display: block;
+  margin: 0 auto !important;
+  padding: 0.5rem 1rem;
+  font-family: inherit;
+  background: #222;
+  color: #fff;
+  border: 2px solid #fff;
+  cursor: pointer;
+
+}
+button:hover {
+  background: #444;
+}
