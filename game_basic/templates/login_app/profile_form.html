@@ -1,12 +1,76 @@
 {% extends "base.html" %}
 
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile_form.css' %}">
+{% endblock %}
+
+
 {% block page_title %}登録 & 更新{% endblock %}
 {% block page_header%}登録 & 更新{% endblock %}
+{% block page_nav %}
+<div class="top-wrap">
+  <ul class="top-lists">
+    <li class="ranking-list">
+      <a href="#">ランキング一覧</a>
+      <ul class="dropdown_lists">
+        <li class="dropdown-list"><a href="{% url 'login_app:ranking_level' %}">ランキング(レベル)</a></li>
+        <li class="dropdown-list"><a href="{% url 'login_app:ranking_win' %}">ランキング(勝利数)</a></li>
+      </ul>
+    </li>
+    <li class="user_detail"> <a href="{% url 'login_app:user_detail' profile.pk %}">ユーザー詳細</a></li>
+  </ul>
+</div>
+{% endblock %}
+
+ {% block user_info %}
+  <p>ようこそ、{{ request.user.username }}</p>
+{% endblock %}
+
 
 {% block content %}
   <form method="post">
     {% csrf_token %}
-    {{ form.as_table }}
+   
+    <table>
+      <tr>
+        <th>
+          <label for="{{form.level.id_for_label}}">レベル</label>
+        </th>
+        <td>
+          {{form.level}}
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+          <label for="{{form.win_count.id_for_label}}">勝利数</label>
+        </th>
+        <td>
+          {{form.win_count}}
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+          <label for="{{form.loss_count.id_for_label}}">敗北数</label>
+        </th>
+        <td>
+          {{form.loss_count}}
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+          <label for="{{form.favorite_mon.id_for_label}}">お気に入りモンスター</label>
+        </th>
+        <td>
+          {{form.favorite_mon}}
+        </td>
+
+      </tr>
+    </table>
 
     {% if is_new_profile %}
       <button type="submit">作成</button>

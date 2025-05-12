@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block page_title %}ランキング(勝利数){% endblock %}
+{% block page_header %}ランキング(勝利数){% endblock %}
+
+{% block content %}
+<table>
+  <thead>
+    <tr>
+      <th>順位</th>
+      <th>ユーザー名</th>
+      <th>勝利数</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in profiles %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ p.user.username }}</td>
+        <td>{{ p.win_count }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="3">データがありません</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="{% url 'login_app:profile_form' %}">戻る</a>
+
+{% if is_paginated %}
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+    {% endif %}
+    <span>ページ {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+    {% endif %}
+  </div>
+{% endif %}
+{% endblock %}

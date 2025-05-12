@@ -1,6 +1,6 @@
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import render
-from django.views.generic import CreateView, FormView, UpdateView
+from django.views.generic import CreateView, FormView, UpdateView,ListView,DetailView
 from django.http import HttpResponseRedirect
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -11,7 +11,7 @@ from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import SignUpForm, UsernameResetForm, ProfileForm
-from .models import Profile
+from .models import Profile,Rank
 
 #新規登録
 User = get_user_model()
@@ -55,34 +55,70 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Profile
 from .forms import ProfileForm
 
+from django.urls import reverse_lazy
+from django.views.generic import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from .models import Profile, Rank
+from .forms  import ProfileForm
+
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
-    model               = Profile
-    form_class          = ProfileForm
-    template_name       = 'login_app/profile_form.html'
-    success_url         = reverse_lazy('login_app:profile_form')
+    model         = Profile
+    form_class    = ProfileForm
+    template_name = 'login_app/profile_form.html'
+    success_url   = reverse_lazy('login_app:profile_form')
     context_object_name = 'profile'
 
+    # --- ① 編集対象取得（既存がなければ None で「作成モード」へ） ---
     def get_object(self, queryset=None):
-        """
-        GET リクエストでは Profile を作らず、既存があれば返すだけ。
-        まだなければ None を返して「新規モード」にする。
-        """
-        try:
-            return Profile.objects.get(user=self.request.user)
-        except Profile.DoesNotExist:
-            return None
+        return Profile.objects.filter(user=self.request.user).first()
 
+    # --- ② テンプレート用フラグ ---
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        # プロフィールが存在しないなら新規モード(True)、あるなら編集モード(False)
-        ctx['is_new_profile'] = (ctx.get('profile') is None)
+        ctx['current_user'] = self.request.user
+        ctx['is_new_profile'] = (self.object is None)
         return ctx
 
+    # --- ③ 保存ロジック ---
     def form_valid(self, form):
-        """
-        POST 時に初めてレコードを作成 or 取得し、
-        form.instance にセットしてから保存。
-        """
-        profile, created = Profile.objects.get_or_create(user=self.request.user)
-        form.instance = profile
+        # 既存 or 新規インスタンスを確保
+        profile = self.object or Profile(user=self.request.user)
+
+        # フォームの値を一括反映
+        for field in ('level', 'win_count', 'loss_count', 'favorite_mon'):
+            setattr(profile, field, form.cleaned_data[field])
+
+        # レベル → Rank 自動割り当て
+        level = profile.level
+        profile.rank = Rank.objects.get(min_level__lte=level,
+                                        max_level__gte=level)
+
+        # 保存
+        profile.save()
+        self.object = profile   # UpdateView が後続で使うのでセット
+
         return super().form_valid(form)
+#ランキング一覧（レベル）
+class LevelRankingView(ListView):
+    model=Profile
+    template_name='login_app/level_ranking.html'
+    context_object_name="profiles"
+    ordering=['-level']
+    paginate_by= 20
+    def get_queryset(self):
+        return super().get_queryset().select_related('user')
+
+class WinRankingView(ListView):
+    model=Profile
+    template_name='login_app/win_ranking.html'
+    context_object_name="profiles"
+    ordering=['-win_count']
+    paginate_by= 20
+    def get_queryset(self):
+        return super().get_queryset().select_related('user')
+
+class UserdetailView(DetailView):
+    model=Profile
+    template_name="login_app/user_detail.html"
+    context_object_name="profile"
