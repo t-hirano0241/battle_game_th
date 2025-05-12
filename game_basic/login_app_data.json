@@ -1,0 +1,729 @@
+[
+
+
+
+
+
+
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "login_app",
+    "model": "rank"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "login_app",
+    "model": "skill"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "login_app",
+    "model": "profile"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "login_app",
+    "model": "monster"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "login_app",
+    "model": "monsterskill"
+  }
+},
+{
+  "model": "login_app.skill",
+  "pk": 1,
+  "fields": {
+    "name": "グラトニー",
+    "description": "与えるダメージ量が増える"
+  }
+},
+{
+  "model": "login_app.skill",
+  "pk": 2,
+  "fields": {
+    "name": "ブラック・デヴォーション",
+    "description": "与えるダメージ量が増える"
+  }
+},
+{
+  "model": "login_app.skill",
+  "pk": 3,
+  "fields": {
+    "name": "動かざる意志",
+    "description": "防御力が向上する"
+  }
+},
+{
+  "model": "login_app.skill",
+  "pk": 4,
+  "fields": {
+    "name": "鉄壁の構え",
+    "description": "防御力が向上する"
+  }
+},
+{
+  "model": "login_app.skill",
+  "pk": 5,
+  "fields": {
+    "name": "激辛コンティニュー",
+    "description": "3ターンの間、相手をやけど状態にする。\r\nやけど：相手モンスターのMAXスタミナから、25%を削る。"
+  }
+},
+{
+  "model": "login_app.skill",
+  "pk": 6,
+  "fields": {
+    "name": "漆黒雷刃(しっこくらいじん)",
+    "description": "1ターンの間、相手をまひ状態にする。\r\nまひ：相手モンスターが攻撃できなくなる。"
+  }
+},
+{
+  "model": "login_app.skill",
+  "pk": 7,
+  "fields": {
+    "name": "しびれ手裏剣",
+    "description": "1ターンの間、相手をまひ状態にする。\r\nまひ：相手モンスターが攻撃できなくなる。"
+  }
+},
+{
+  "model": "login_app.skill",
+  "pk": 8,
+  "fields": {
+    "name": "ノクス・ハーフシールド",
+    "description": "2ターンの間、相手のダメージを半減する。"
+  }
+},
+{
+  "model": "login_app.skill",
+  "pk": 9,
+  "fields": {
+    "name": "幻花粉ヴェール",
+    "description": "3ターンの間、相手を混乱状態にする。\r\n混乱：30%の確率で相手を攻撃する。70%の確率で自分を攻撃する。"
+  }
+},
+{
+  "model": "login_app.skill",
+  "pk": 10,
+  "fields": {
+    "name": "迷いの霧",
+    "description": "3ターンの間、相手を混乱状態にする。\r\n混乱：30%の確率で相手を攻撃する。70%の確率で自分を攻撃する。"
+  }
+},
+{
+  "model": "login_app.skill",
+  "pk": 11,
+  "fields": {
+    "name": "オートリジェネレーション",
+    "description": "4ターンの間、スタミナがMAXスタミナの20%分回復される。"
+  }
+},
+{
+  "model": "login_app.skill",
+  "pk": 12,
+  "fields": {
+    "name": "鏡面結界",
+    "description": "3ターンの間、ダメージを受けた30%のダメージ量を相手に与える"
+  }
+},
+{
+  "model": "login_app.skill",
+  "pk": 13,
+  "fields": {
+    "name": "ブラッドリーパー",
+    "description": "攻撃したダメージ分だけ自身を回復する"
+  }
+},
+{
+  "model": "login_app.skill",
+  "pk": 14,
+  "fields": {
+    "name": "リミットブレイク",
+    "description": "次の1回、受けるダメージを無効化し150%反射する（HP20%以下で使用可）"
+  }
+},
+{
+  "model": "login_app.skill",
+  "pk": 15,
+  "fields": {
+    "name": "喧嘩上等",
+    "description": "攻撃力が増加する"
+  }
+},
+{
+  "model": "login_app.monster",
+  "pk": 1,
+  "fields": {
+    "name": "リムル",
+    "description": "かつて英雄に倒された“混沌核”の一部が意思を持ち、スライムの姿で再誕したもの。\r\n外見は柔らかく、無垢。だが戦闘では、敵の力を「捕食（グラトニー）」し、自らの糧にするという本能的狂気を宿す。\r\n「摂取せよ、そして進化せよ」",
+    "base_hp": 28,
+    "base_attack": 22,
+    "base_defense": 15,
+    "skill": 1,
+    "level": 1
+  }
+},
+{
+  "model": "login_app.monster",
+  "pk": 2,
+  "fields": {
+    "name": "ベルゼビュート",
+    "description": "あらゆる強者の力を吸収し、ついに王へと至ったリムルの最終形態。\r\nその肉体はもはや固体と液体の狭間にあり、触れるもの全てを“取り込む”。\r\n「我は飢えている――まだ、足りぬ。」",
+    "base_hp": 35,
+    "base_attack": 28,
+    "base_defense": 19,
+    "skill": 2,
+    "level": 1
+  }
+},
+{
+  "model": "login_app.monster",
+  "pk": 3,
+  "fields": {
+    "name": "イキリンコ",
+    "description": "小型ながら尋常でない“好戦性”を持つ猛禽モンスター。\r\n生まれながらに闘争本能が刺激されており、敵を見つけると「喧嘩上等」と叫びながら突撃する。\r\n見た目はキュート、性格はワイルド――まさに“戦場のチンピラ”。\r\n「てめぇ、何見てんだよ」",
+    "base_hp": 26,
+    "base_attack": 18,
+    "base_defense": 15,
+    "skill": 15,
+    "level": 1
+  }
+},
+{
+  "model": "login_app.monster",
+  "pk": 4,
+  "fields": {
+    "name": "雪の旅館",
+    "description": "「宿」が進化し、絶対的な防御性能を得た姿。敵の猛攻を静かに受け流し、味方をひたすらに守り抜く。\r\n「すべて、お預けくださいませ――」",
+    "base_hp": 27,
+    "base_attack": 15,
+    "base_defense": 23,
+    "skill": 4,
+    "level": 1
+  }
+},
+{
+  "model": "login_app.monster",
+  "pk": 5,
+  "fields": {
+    "name": "雪の宿",
+    "description": "冷気をまとう存在で、戦場に雪の空間を作り出す。自身や仲間を包み込み、防御に徹するタンク型モンスター。\r\n「ここは、あなたの帰る場所――」",
+    "base_hp": 20,
+    "base_attack": 13,
+    "base_defense": 18,
+    "skill": 3,
+    "level": 1
+  }
+},
+{
+  "model": "login_app.monster",
+  "pk": 6,
+  "fields": {
+    "name": "シビレノスケ",
+    "description": "かつて雷の里で訓練されていたが、力を制御できずに封印された忍び。\r\nその手裏剣は、命中すれば神経を麻痺させ、相手の行動を奪う。\r\n「一閃、そして静寂――」",
+    "base_hp": 24,
+    "base_attack": 20,
+    "base_defense": 14,
+    "skill": 7,
+    "level": 1
+  }
+},
+{
+  "model": "login_app.monster",
+  "pk": 7,
+  "fields": {
+    "name": "電撃のカゲギリ",
+    "description": "シビレノスケの進化形態。稲妻の如き速度と、影のような存在感。\r\nその技「漆黒雷刃」は一撃で敵の中枢神経を焼き切ると恐れられている。\r\n「その一太刀、瞬電の如く」",
+    "base_hp": 27,
+    "base_attack": 22,
+    "base_defense": 17,
+    "skill": 6,
+    "level": 1
+  }
+},
+{
+  "model": "login_app.monster",
+  "pk": 8,
+  "fields": {
+    "name": "ペヤング激",
+    "description": "禁断の辛味調合で生み出された“灼熱の呪われし魔獣”。\r\nその体内は常に激辛マグマが煮えたぎっており、体温は火山弾と同程度。\r\n戦場に現れると、空気すらピリつき、敵はその気配だけで皮膚を焼かれるという。\r\n「オマエの耐性が……試される」",
+    "base_hp": 24,
+    "base_attack": 21,
+    "base_defense": 15,
+    "skill": 5,
+    "level": 1
+  }
+},
+{
+  "model": "login_app.monster",
+  "pk": 9,
+  "fields": {
+    "name": "ノクスガード",
+    "description": "あらゆる攻撃を“半分だけ”受け止める特異な盾士。受け流しに特化し、持久戦に強い。\r\n「何も通さぬ――半分もな」",
+    "base_hp": 25,
+    "base_attack": 18,
+    "base_defense": 21,
+    "skill": 8,
+    "level": 1
+  }
+},
+{
+  "model": "login_app.monster",
+  "pk": 10,
+  "fields": {
+    "name": "鏡面鬼",
+    "description": "鏡の世界に生きる存在。攻撃を受けた瞬間、反射光のように敵へ跳ね返すその姿は“業を写す鬼”と呼ばれる。\r\n「見たな――ならば、お前の罪も返してやる」",
+    "base_hp": 24,
+    "base_attack": 20,
+    "base_defense": 14,
+    "skill": 12,
+    "level": 1
+  }
+},
+{
+  "model": "login_app.monster",
+  "pk": 11,
+  "fields": {
+    "name": "ブラッディウィザード",
+    "description": "血を操る魔術で敵の体力を奪い、自らを癒す冷酷な戦略家。深紅のマントが血の雨を呼ぶとされる。\r\n「奪うだけだ、感情も希望も命も」",
+    "base_hp": 26,
+    "base_attack": 29,
+    "base_defense": 13,
+    "skill": 13,
+    "level": 1
+  }
+},
+{
+  "model": "login_app.monster",
+  "pk": 12,
+  "fields": {
+    "name": "セルリバイバー",
+    "description": "死を否定した生物科学者が、自己修復型細胞「R-セル」を極限まで進化させた末に生まれた異形の存在。\r\nその体は常に自己増殖を続け、斬られても砕かれても、瞬時に再構築される。\r\n「オレは終わらない。オマエが終わるまでな――」",
+    "base_hp": 26,
+    "base_attack": 17,
+    "base_defense": 19,
+    "skill": 11,
+    "level": 1
+  }
+},
+{
+  "model": "login_app.monster",
+  "pk": 13,
+  "fields": {
+    "name": "迷い蜂",
+    "description": "幻花粉をばらまき、相手の五感を狂わせる蜂型モンスター。姿は可憐だが、戦場においては恐るべき撹乱者。\r\n「キミはもう、誰と戦っているかも分からない」",
+    "base_hp": 20,
+    "base_attack": 14,
+    "base_defense": 17,
+    "skill": 10,
+    "level": 1
+  }
+},
+{
+  "model": "login_app.monster",
+  "pk": 14,
+  "fields": {
+    "name": "ゲンムプリンセスビー",
+    "description": "迷い蜂の進化形。王族として覚醒したその姿は美しさと恐怖が混在し、敵をその幻想に沈める。\r\n「さぁ、夢から醒めないで……」",
+    "base_hp": 25,
+    "base_attack": 16,
+    "base_defense": 18,
+    "skill": 9,
+    "level": 1
+  }
+},
+{
+  "model": "login_app.monster",
+  "pk": 15,
+  "fields": {
+    "name": "カウンターブレイズ",
+    "description": "瀕死状態でこそ真価を発揮する孤高の戦士。炎をまとい、敵の攻撃を“逆流”させる奥義「リミットブレイク」を持つ。\r\n「この一撃に、すべてを――」",
+    "base_hp": 26,
+    "base_attack": 21,
+    "base_defense": 15,
+    "skill": 14,
+    "level": 1
+  }
+},
+{
+  "model": "login_app.monsterskill",
+  "pk": 1,
+  "fields": {
+    "monster": 1,
+    "skill": 1
+  }
+},
+{
+  "model": "login_app.monsterskill",
+  "pk": 2,
+  "fields": {
+    "monster": 2,
+    "skill": 2
+  }
+},
+{
+  "model": "login_app.monsterskill",
+  "pk": 3,
+  "fields": {
+    "monster": 3,
+    "skill": 15
+  }
+},
+{
+  "model": "login_app.monsterskill",
+  "pk": 4,
+  "fields": {
+    "monster": 4,
+    "skill": 4
+  }
+},
+{
+  "model": "login_app.monsterskill",
+  "pk": 5,
+  "fields": {
+    "monster": 5,
+    "skill": 3
+  }
+},
+{
+  "model": "login_app.monsterskill",
+  "pk": 6,
+  "fields": {
+    "monster": 6,
+    "skill": 7
+  }
+},
+{
+  "model": "login_app.monsterskill",
+  "pk": 7,
+  "fields": {
+    "monster": 7,
+    "skill": 6
+  }
+},
+{
+  "model": "login_app.monsterskill",
+  "pk": 8,
+  "fields": {
+    "monster": 8,
+    "skill": 5
+  }
+},
+{
+  "model": "login_app.monsterskill",
+  "pk": 9,
+  "fields": {
+    "monster": 9,
+    "skill": 8
+  }
+},
+{
+  "model": "login_app.monsterskill",
+  "pk": 10,
+  "fields": {
+    "monster": 10,
+    "skill": 12
+  }
+},
+{
+  "model": "login_app.monsterskill",
+  "pk": 11,
+  "fields": {
+    "monster": 11,
+    "skill": 13
+  }
+},
+{
+  "model": "login_app.monsterskill",
+  "pk": 12,
+  "fields": {
+    "monster": 12,
+    "skill": 11
+  }
+},
+{
+  "model": "login_app.monsterskill",
+  "pk": 13,
+  "fields": {
+    "monster": 13,
+    "skill": 10
+  }
+},
+{
+  "model": "login_app.monsterskill",
+  "pk": 14,
+  "fields": {
+    "monster": 14,
+    "skill": 9
+  }
+},
+{
+  "model": "login_app.monsterskill",
+  "pk": 15,
+  "fields": {
+    "monster": 15,
+    "skill": 14
+  }
+},
+{
+  "model": "login_app.rank",
+  "pk": 1,
+  "fields": {
+    "min_level": 1,
+    "max_level": 9,
+    "title": "試練の見習い",
+    "description": "まずはコケても立ち上がる者。ここから物語が動き出す。"
+  }
+},
+{
+  "model": "login_app.rank",
+  "pk": 2,
+  "fields": {
+    "min_level": 10,
+    "max_level": 19,
+    "title": "伸びしろの若武者",
+    "description": "まだ青いが、その勢いは確か。次の一手に期待が膨らむ。"
+  }
+},
+{
+  "model": "login_app.rank",
+  "pk": 3,
+  "fields": {
+    "min_level": 20,
+    "max_level": 29,
+    "title": "一撃の達人",
+    "description": "要所を押さえて効率よく決める者。ムダを嫌うスマートさ。"
+  }
+},
+{
+  "model": "login_app.rank",
+  "pk": 4,
+  "fields": {
+    "min_level": 30,
+    "max_level": 39,
+    "title": "粘りの鬼",
+    "description": "諦めずにくらいつく粘り強さ。周囲が「まだ？」と驚く。"
+  }
+},
+{
+  "model": "login_app.rank",
+  "pk": 5,
+  "fields": {
+    "min_level": 40,
+    "max_level": 49,
+    "title": "堅守の番人",
+    "description": "拠点を譲らぬ硬さで守り抜く者。攻めより守りで信頼を得る。"
+  }
+},
+{
+  "model": "login_app.rank",
+  "pk": 6,
+  "fields": {
+    "min_level": 50,
+    "max_level": 59,
+    "title": "闇を裂く剣士",
+    "description": "影の中から飛び出し、一閃で流れを切り裂く鋭さ。"
+  }
+},
+{
+  "model": "login_app.rank",
+  "pk": 7,
+  "fields": {
+    "min_level": 60,
+    "max_level": 69,
+    "title": "風読みの狩人",
+    "description": "風向きを見極め、最適な一手を放つ者。自然すら味方にする。"
+  }
+},
+{
+  "model": "login_app.rank",
+  "pk": 8,
+  "fields": {
+    "min_level": 70,
+    "max_level": 79,
+    "title": "千手の思考者",
+    "description": "あらゆる局面に同時に目を向け、複数の選択肢を並行して考え抜く者。"
+  }
+},
+{
+  "model": "login_app.rank",
+  "pk": 9,
+  "fields": {
+    "min_level": 80,
+    "max_level": 89,
+    "title": "光影の継承者",
+    "description": "明と暗、相反する力をひとつに束ねる者。二つの世界を渡る。"
+  }
+},
+{
+  "model": "login_app.rank",
+  "pk": 10,
+  "fields": {
+    "min_level": 90,
+    "max_level": 99,
+    "title": "終焉の導師",
+    "description": "物語の結末すら見通す者。道を示し、最後の一歩を共にする。"
+  }
+},
+{
+  "model": "login_app.rank",
+  "pk": 11,
+  "fields": {
+    "min_level": 100,
+    "max_level": 100,
+    "title": "絶対の王者",
+    "description": "すべてを超越し、頂点に君臨する者。その名は語り草。"
+  }
+},
+
+
+
+
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$msSqmpBcnriJ8gTLwDl2cq$/+eqFO6FGzK8IHFSlCIDp5ERygp7Cx1VqjpStBuuV50=",
+    "last_login": "2025-05-10T09:05:09.494Z",
+    "is_superuser": true,
+    "username": "takuto-hirano",
+    "first_name": "",
+    "last_name": "",
+    "email": "tkt-hirano@unext-hd.jp",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-05-10T08:55:25.824Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$3AiLeQokwczRLDcGyLxLTO$H/1HwKY58Goaan9W6gkBjvW+1ZNSJum/e2Uw06eySDU=",
+    "last_login": "2025-05-11T13:58:56.269Z",
+    "is_superuser": false,
+    "username": "Takuto",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-05-11T12:20:04.525Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$VMs3LP7H6nsnagyJl0IWMP$mReCLouV/F2Mg3dELkRReOn9+Fa5xqZ6cmvxB9ryIyo=",
+    "last_login": "2025-05-11T13:09:17.067Z",
+    "is_superuser": false,
+    "username": "Sakura",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-05-11T12:27:09.034Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$wuXkGqv6pIiQjG0icUyqla$9mLW2wIQ8tptNEaS1TNHx7v0LM3qrsL53da3Q8Jj66o=",
+    "last_login": "2025-05-11T12:51:38.659Z",
+    "is_superuser": false,
+    "username": "Etuya",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-05-11T12:51:10.892Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$c7ApJRyM6OFVtSheFP9yss$Mfuh8AcHRTorlJAK4id63Zi24Z8vzYrKlq80JjeR/G0=",
+    "last_login": "2025-05-11T13:55:40.511Z",
+    "is_superuser": false,
+    "username": "Yuson",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-05-11T13:10:00.172Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "login_app.profile",
+  "pk": 1,
+  "fields": {
+    "user": [
+      "takuto-hirano"
+    ],
+    "level": 1,
+    "win_count": 0,
+    "loss_count": 0,
+    "favorite_mon": null
+  }
+},
+{
+  "model": "login_app.profile",
+  "pk": 2,
+  "fields": {
+    "user": [
+      "Takuto"
+    ],
+    "level": 1,
+    "win_count": 1,
+    "loss_count": 0,
+    "favorite_mon": 1
+  }
+},
+{
+  "model": "login_app.profile",
+  "pk": 3,
+  "fields": {
+    "user": [
+      "Sakura"
+    ],
+    "level": 1,
+    "win_count": 0,
+    "loss_count": 0,
+    "favorite_mon": null
+  }
+},
+{
+  "model": "login_app.profile",
+  "pk": 4,
+  "fields": {
+    "user": [
+      "Etuya"
+    ],
+    "level": 1,
+    "win_count": 4,
+    "loss_count": 2,
+    "favorite_mon": 12
+  }
+}
+]

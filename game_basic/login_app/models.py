@@ -63,6 +63,7 @@ class Profile(models.Model):
                        verbose_name="お気に入りモンスター",
                        related_name='favored_by'
                    )
+    rank = models.ForeignKey(Rank, on_delete=models.CASCADE,null=True)
 
     def __str__(self):
         return f"{self.user.username} (Lv{self.level})"
