@@ -1,0 +1,61 @@
+.monster_check{
+    display: flex;
+    justify-content: center;
+    margin:60px 0 ;
+}
+
+h1{
+    text-align: center;
+}
+
+.host_monsters_list{
+    width: 300px;
+     display: flex;
+  flex-direction: column; /* 縦に並べたいなら column */
+  align-items: center;    /* 中の要素を横方向の中央に */
+  gap: .5rem;             /* 要素間の余白 */
+}
+
+.host_monster{
+    width: 50%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.host_monster img{
+    width: 100%;
+}
+
+.join_monster_list{
+    width: 300px;
+     display: flex;
+  flex-direction: column; /* 縦に並べたいなら column */
+  align-items: center;    /* 中の要素を横方向の中央に */
+  gap: .5rem;             /* 要素間の余白 */
+}
+
+.join_monster{
+    width: 50%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.join_monster img{
+    width: 100%;
+}
+
+span{
+    font-size: 15px;
+}
+
+form{
+    max-width: 300px;
+    text-align: center;
+    margin:0 auto;
+    
+}
+
+button{
+    height: 50px;
+    width: 100px;
+}

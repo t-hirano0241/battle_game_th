@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/clear.css' %}">
+{% endblock %}
+
+
+{% block page_title %}クリア画面{% endblock %}
+
+
+
+
+{% block content %}
+<div class="clear-container">
+  <h1>Campaign Clear!</h1>
+  <p>10 戦すべてクリアしました！おめでとうございます。</p>
+  {% if clear_time %}
+    <p>クリアタイム: {{ clear_time }}</p>
+  {% endif %}
+  <a href="{% url 'battle_app:battle_start' %}">再挑戦する</a>
+</div>
+{% endblock %}

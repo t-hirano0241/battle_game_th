@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/time_attack_ranking.css' %}">
+{% endblock %}
+
+{% block page_title %}タイムアタックランキング{% endblock %}
+
+
+{% block content %}
+<div class="ranking-card">
+  <h2>タイムアタックランキング</h2>
+
+  <div class="table-wrapper">
+    <table class="ranking-table">
+      <thead>
+        <tr>
+          <th>順位</th>
+          <th>ユーザー名</th>
+          <th>タイム</th>
+          <th>達成日時</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in times %}
+        <tr>
+          <td>{{ forloop.counter0|add:page_obj.start_index }}</td>
+          <td>{{ t.user.username }}</td>
+          <td>{{ t.elapsed_time }}</td>
+          <td>{{ t.cleared_at|date:"Y/m/d H:i" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4">データがありません</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if is_paginated %}
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+    {% endif %}
+    <span>ページ {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <div class="btn-group">
+    <a href="{% url 'login_app:top_wrap' %}" class="btn-black">トップへ戻る</a>
+  </div>
+</div>
+{% endblock %}

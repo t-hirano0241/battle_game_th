@@ -33,7 +33,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'login_app',
+    'battle_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -70,6 +72,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'battle_game.wsgi.application'
+
 
 
 # Database
@@ -131,4 +134,18 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'login_app:profile_form'
+LOGIN_REDIRECT_URL = 'login_app:top_wrap'
+
+ASGI_APPLICATION = 'battle_game.asgi.application'
+
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
+
+
+# settings.py
+MEDIA_ROOT = BASE_DIR / 'media'   # プロジェクト直下の media/ フォルダにアップロード
+MEDIA_URL  = '/media/'            # ブラウザからは /media/<path> でアクセス

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/campaign_recruit.css' %}">
+{% endblock %}
+{% block content %}
+<div class="recruit-form">
+  <h1 class="form-title">{{ monster.name }} を仲間にする</h1>
+  <p class="form-subtitle">Lv: {{ monster.level }}</p>
+
+  <div class="monster-display">
+    <img src="{{ monster.front_url }}" alt="{{ monster.name }}" class="monster-image">
+  </div>
+
+  <table class="info-table">
+    <tr>
+      <th>必殺技</th>
+      <td>{{ monster.skill_name }}</td>
+    </tr>
+    <tr>
+      <th>詳細</th>
+      <td>{{ monster.skill_desc }}</td>
+    </tr>
+  </table>
+
+  <!-- 「仲間にする」 -->
+  <form method="post" action="{% url 'battle_app:battle_recruit_submit' %}">
+    {% csrf_token %}
+    <input type="hidden" name="choice" value="yes">
+    <!-- drop_idx は不要 -->
+    <button type="submit" class="btn">仲間にする</button>
+  </form>
+
+  <!-- 「仲間にしないで、次へ」 -->
+  <form method="post" action="{% url 'battle_app:battle_recruit_submit' %}">
+    {% csrf_token %}
+    <input type="hidden" name="choice" value="no">
+    <button type="submit" class="btn">仲間にしないで、次へ</button>
+  </form>
+
+  {% if party|length > 2 %}
+    <!-- 手持ちが3体以上なら「逃がす」リストを表示 -->
+    <div class="drop-section">
+      手持ち⼈数が上限（3体）を超えたため、逃がすモンスターを選択：
+      <div class="drop-list">
+        <form method="post" action="{% url 'battle_app:battle_recruit_submit' %}">
+          {% csrf_token %}
+          <input type="hidden" name="choice" value="yes">
+          {% for m in party %}
+            <input type="radio" id="drop{{ forloop.counter0 }}" name="drop_idx" value="{{ forloop.counter0 }}">
+            <label for="drop{{ forloop.counter0 }}">{{ m.name }}（Lv{{ m.level }}）</label>
+          {% endfor %}
+          <button type="submit" class="btn">決定</button>
+        </form>
+      </div>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

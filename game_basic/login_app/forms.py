@@ -53,8 +53,8 @@ class UsernameResetForm(forms.Form):
 
 
 
-#トップ画面
+#マイページ画面
 class ProfileForm(forms.ModelForm):
 	class Meta:
 		model=Profile
-		fields=("level","win_count","loss_count","favorite_mon")
+		fields=("favorite_mon",)

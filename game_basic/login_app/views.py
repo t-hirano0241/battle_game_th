@@ -1,6 +1,6 @@
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import render
-from django.views.generic import CreateView, FormView, UpdateView,ListView,DetailView
+from django.views.generic import CreateView, FormView, UpdateView,ListView,TemplateView
 from django.http import HttpResponseRedirect
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -11,7 +11,14 @@ from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import SignUpForm, UsernameResetForm, ProfileForm
-from .models import Profile,Rank
+from .models import Profile
+from django.urls import reverse_lazy
+from django.views.generic.edit import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Profile,TimeAttackRecord
+from .forms import ProfileForm
+from django.shortcuts import redirect
+
 
 #新規登録
 User = get_user_model()
@@ -19,12 +26,14 @@ User = get_user_model()
 class SignUpView(CreateView):
     form_class = SignUpForm
     template_name = 'registration/signup.html'
-    success_url = reverse_lazy('login_app:profile_form')
+    success_url = reverse_lazy('login_app:top_wrap')
 
     def form_valid(self, form):
         user = form.save()
+        Profile.objects.create(user=user)
         from django.contrib.auth import login
         login(self.request, user)
+
         return super().form_valid(form)
 
 #パスワード忘れた時
@@ -49,76 +58,77 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     success_url   = reverse_lazy('login')
 
 #トップ画面
-from django.urls import reverse_lazy
-from django.views.generic.edit import UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Profile
-from .forms import ProfileForm
-
-from django.urls import reverse_lazy
-from django.views.generic import UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-from .models import Profile, Rank
-from .forms  import ProfileForm
+class TopView(LoginRequiredMixin, TemplateView):
+    template_name = 'login_app/top_wrap.html'
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
-    model         = Profile
-    form_class    = ProfileForm
-    template_name = 'login_app/profile_form.html'
-    success_url   = reverse_lazy('login_app:profile_form')
+    model               = Profile
+    form_class          = ProfileForm               # ← これが必須
+    template_name       = 'login_app/profile_form.html'
+    success_url         = reverse_lazy('login_app:profile_form')
     context_object_name = 'profile'
 
-    # --- ① 編集対象取得（既存がなければ None で「作成モード」へ） ---
     def get_object(self, queryset=None):
-        return Profile.objects.filter(user=self.request.user).first()
+        # 存在すれば取得、なければ作成
+        profile, created = Profile.objects.get_or_create(user=self.request.user)
+        # created=True のときが「本当の新規作成モード」
+        self.is_new_profile = created
+        return profile
 
-    # --- ② テンプレート用フラグ ---
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx['current_user'] = self.request.user
-        ctx['is_new_profile'] = (self.object is None)
+
+        # サインアップ時に自動作成された "空" プロフィールも新規扱いにする
+        if not getattr(self, 'is_new_profile', False):
+            profile = self.object
+            if profile.favorite_mon is None and profile.best_record is None:
+                ctx['is_new_profile'] = True
+            else:
+                ctx['is_new_profile'] = False
+        else:
+            ctx['is_new_profile'] = True
+
         return ctx
 
-    # --- ③ 保存ロジック ---
     def form_valid(self, form):
-        # 既存 or 新規インスタンスを確保
-        profile = self.object or Profile(user=self.request.user)
+        # フォームからデータを受け取って保存
+        profile = form.save(commit=False)
 
-        # フォームの値を一括反映
-        for field in ('level', 'win_count', 'loss_count', 'favorite_mon'):
-            setattr(profile, field, form.cleaned_data[field])
+        # もしランク自動計算が必要ならここで
+        # level = profile.level
+        # profile.rank = Rank.objects.get(min_level__lte=level, max_level__gte=level)
 
-        # レベル → Rank 自動割り当て
-        level = profile.level
-        profile.rank = Rank.objects.get(min_level__lte=level,
-                                        max_level__gte=level)
-
-        # 保存
         profile.save()
-        self.object = profile   # UpdateView が後続で使うのでセット
+        return redirect(self.get_success_url())
+# #ランキング一覧（レベル）
+# class LevelRankingView(ListView):
+#     model=Profile
+#     template_name='login_app/level_ranking.html'
+#     context_object_name="profiles"
+#     ordering=['-level']
+#     paginate_by= 20
+#     def get_queryset(self):
+#         return super().get_queryset().select_related('user')
 
-        return super().form_valid(form)
-#ランキング一覧（レベル）
-class LevelRankingView(ListView):
-    model=Profile
-    template_name='login_app/level_ranking.html'
-    context_object_name="profiles"
-    ordering=['-level']
-    paginate_by= 20
+# class WinRankingView(ListView):
+#     model=Profile
+#     template_name='login_app/win_ranking.html'
+#     context_object_name="profiles"
+#     ordering=['-win_count']
+#     paginate_by= 20
+#     def get_queryset(self):
+#         return super().get_queryset().select_related('user')
+
+class TimeAttackRankingView(LoginRequiredMixin, ListView):
+    model = TimeAttackRecord
+    template_name = 'login_app/time_attack_ranking.html'
+    context_object_name = 'times'
+    paginate_by = 20
+
     def get_queryset(self):
-        return super().get_queryset().select_related('user')
-
-class WinRankingView(ListView):
-    model=Profile
-    template_name='login_app/win_ranking.html'
-    context_object_name="profiles"
-    ordering=['-win_count']
-    paginate_by= 20
-    def get_queryset(self):
-        return super().get_queryset().select_related('user')
-
-class UserdetailView(DetailView):
-    model=Profile
-    template_name="login_app/user_detail.html"
-    context_object_name="profile"
+        # タイムが速い順に並べ、ユーザーも一緒に取得
+        return (
+            TimeAttackRecord.objects
+            .select_related('user')
+            .order_by('elapsed_time', 'cleared_at')
+        )

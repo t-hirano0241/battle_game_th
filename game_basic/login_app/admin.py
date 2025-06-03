@@ -1,6 +1,6 @@
 # login_app/admin.py
 from django.contrib import admin
-from .models import Monster, Skill, Rank, MonsterSkill
+from .models import Monster, Skill,  MonsterSkill
 
 # ① 中間テーブル用の Inline クラスを定義
 class MonsterSkillInline(admin.TabularInline):
@@ -12,11 +12,11 @@ class SkillAdmin(admin.ModelAdmin):
     list_display  = ('name',)
     search_fields = ('name',)
 
-@admin.register(Rank)
-class RankAdmin(admin.ModelAdmin):
-    list_display  = ('min_level', 'max_level', 'title')
-    search_fields = ('title',)
-    list_filter   = ('min_level', 'max_level')
+# @admin.register(Rank)
+# class RankAdmin(admin.ModelAdmin):
+#     list_display  = ('min_level', 'max_level', 'title')
+#     search_fields = ('title',)
+#     list_filter   = ('min_level', 'max_level')
 
 @admin.register(Monster)
 class MonsterAdmin(admin.ModelAdmin):
@@ -26,7 +26,7 @@ class MonsterAdmin(admin.ModelAdmin):
         'skill',
         'base_hp',
         'base_attack',
-        'base_defense',
+        'base_defence',
         'level',
         'short_desc',
     )

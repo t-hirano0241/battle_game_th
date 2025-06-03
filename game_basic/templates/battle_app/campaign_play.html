@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/battle_wrap.css' %}">{% endblock %}
+
+{% block content %}
+<div class="battle_field">
+  <!-- プレイヤー側 -->
+  <div class="player_field">
+    <div class="active-monsters">
+      <div class="mon active" data-idx="0">
+        <img src="{{ party.0.back_url }}" alt="{{ party.0.name }}" class="char-img large">
+        <p>{{ party.0.name }} (Lv{{ party.0.level }})</p>
+        <div class="hp-bar">
+          <div class="hp-bar-inner hp-high"
+               style="width: {% widthratio party.0.hp party.0.max_hp 100 %}%;"></div>
+        </div>
+        <p class="hp-text">{{ party.0.hp }} / {{ party.0.max_hp }}</p>
+      </div>
+    </div>
+    <div class="reserve-monsters">
+      {% for m in party|slice:"1:" %}
+      <div class="mon" data-idx="{{ forloop.counter }}">
+        <img src="{{ m.front_url }}" alt="{{ m.name }}" class="char-img small">
+        <p>{{ m.name }} (Lv{{ m.level }})</p>
+        <div class="hp-bar small-bar">
+          <div class="hp-bar-inner hp-high"
+               style="width: {% widthratio m.hp m.max_hp 100 %}%;"></div>
+        </div>
+        <p class="hp-text small-text">{{ m.hp }} / {{ m.max_hp }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+    <div class="vs-mg">
+        <img src="{% static 'images/screenshot-2025-05-22-000830.png' %}" alt="vs画像">
+    </div>
+
+  <!-- 敵側 -->
+  <div class="enemy_field">
+    <div class="active-monsters">
+      <div class="mon" data-idx="0">
+        <img src="{{ enemy.front_url }}" alt="{{ enemy.name }}" class="char-img large">
+        <p>{{ enemy.name }} (Lv{{ enemy.level }})</p>
+        <div class="hp-bar">
+          <div class="hp-bar-inner hp-high"
+               style="width: {% widthratio enemy.hp enemy.max_hp 100 %}%;"></div>
+        </div>
+        <p class="hp-text">{{ enemy.hp }} / {{ enemy.max_hp }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p id="turn-indicator">戦 {{ battle_no }} / 10</p>
+
+<div class="action-buttons">
+  <button class="attack-btn">通常攻撃</button>
+  <button class="special-attack-btn">必殺技</button>
+  <button class="switch-btn">交代</button>
+  <button class="surrender-btn">降参</button>
+</div>
+
+<div class="log-box"><pre id="log">ログ...</pre></div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ボタン要素を必ず先に取得
+  const btnAttack    = document.querySelector('.attack-btn');
+  const btnSpecial   = document.querySelector('.special-attack-btn');
+  const btnSwitch    = document.querySelector('.switch-btn');
+  const btnSurrender = document.querySelector('.surrender-btn');
+
+  // その他要素キャッシュ
+  const activeEl   = document.querySelector('.player_field .active-monsters .mon');
+  const reserveEls = Array.from(document.querySelectorAll('.reserve-monsters .mon'));
+  const enemyEl    = document.querySelector('.enemy_field .mon');
+  const turnEl     = document.querySelector('#turn-indicator');
+  const logEl      = document.querySelector('#log');
+  const logBox     = document.querySelector('.log-box');
+
+  let isSwitchMode = false;
+  let aliveIndices = [];
+
+  function appendLog(lines) {
+    lines.forEach(line => logEl.textContent += line + "\n");
+    logBox.scrollTop = logBox.scrollHeight;
+  }
+
+  function renderParty(party, active_idx) {
+    // 最新のパーティ情報をグローバルに保持
+    window.latestParty = party;
+
+    // 出場中モンスター描画
+    const m = party[active_idx];
+    activeEl.querySelector('p').textContent = `${m.name} (Lv${m.level})`;
+    activeEl.querySelector('img.char-img.large').src = m.back_url;
+    const barL = activeEl.querySelector('.hp-bar-inner');
+    const pctL = (m.hp / m.max_hp) * 100;
+    barL.style.width = `${pctL}%`;
+    barL.classList.toggle('hp-low',  pctL < 20);
+    barL.classList.toggle('hp-mid',  pctL >= 20 && pctL < 50);
+    barL.classList.toggle('hp-high', pctL >= 50);
+    activeEl.querySelector('.hp-text').textContent = `${m.hp} / ${m.max_hp}`;
+
+    // 控えモンスター描画
+    reserveEls.forEach((el, i) => {
+      const mm = party[i + 1];
+      el.querySelector('p').textContent = `${mm.name} (Lv${mm.level})`;
+      el.querySelector('img.char-img.small').src = mm.front_url;
+      const barS = el.querySelector('.hp-bar-inner');
+      const pctS = (mm.hp / mm.max_hp) * 100;
+      barS.style.width = `${pctS}%`;
+      barS.classList.toggle('hp-low',  pctS < 20);
+      barS.classList.toggle('hp-mid',  pctS >= 20 && pctS < 50);
+      barS.classList.toggle('hp-high', pctS >= 50);
+      el.querySelector('.hp-text').textContent = `${mm.hp} / ${mm.max_hp}`;
+      el.dataset.idx = i + 1;
+      el.classList.toggle('active-reserve', i + 1 === active_idx);
+    });
+
+    turnEl.textContent = `戦 ${window.latestBattleNo} / 10`;
+  }
+
+  function renderEnemy(enemy) {
+    enemyEl.querySelector('p').textContent = `${enemy.name} (Lv${enemy.level})`;
+    enemyEl.querySelector('img.char-img.large').src = enemy.front_url;
+    const barE = enemyEl.querySelector('.hp-bar-inner');
+    const pctE = (enemy.hp / enemy.max_hp) * 100;
+    barE.style.width = `${pctE}%`;
+    barE.classList.toggle('hp-low',  pctE < 20);
+    barE.classList.toggle('hp-mid',  pctE >= 20 && pctE < 50);
+    barE.classList.toggle('hp-high', pctE >= 50);
+    enemyEl.querySelector('.hp-text').textContent = `${enemy.hp} / ${enemy.max_hp}`;
+  }
+
+  function setControlsEnabled(enabled) {
+    [btnAttack, btnSwitch, btnSurrender]
+      .forEach(btn => btn.disabled = !enabled);
+  }
+
+  async function sendAction(action, target = null) {
+    const res = await fetch("{% url 'battle_app:battle_action' %}", {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}'
+      },
+      body: JSON.stringify({ action, target })
+    });
+    if (!res.ok) {
+    // サーバーが 400 を返してきた場合 text() で中身を取得
+    const err = await res.text();
+    console.error('Server error:', err);
+    // 画面のログ欄に出して、ボタンも復帰
+    appendLog([err]);
+    setControlsEnabled(true);
+    return;
+  }
+    const data = await res.json();
+     console.log(data); 
+
+    appendLog(data.log);
+    window.latestBattleNo = data.battle_no;
+
+  // party／enemy が返ってきていれば描画
+    if (data.party && data.enemy) {
+    renderParty(data.party, data.active_idx);
+    renderEnemy(data.enemy);
+    const statuses = data.party[data.active_idx].statuses || [];
+    const onCooldown = statuses.some(s => s.type === 'SpecialCooldown');
+    btnSpecial.disabled = onCooldown;
+  }
+
+    if (data.redirect) {
+      setTimeout(() =>{
+        window.location.href=data.redirect
+      },2000);
+      return;
+    }
+
+    if (data.switch_required) {
+      // 共通アップデート
+      window.latestBattleNo = data.battle_no;
+      renderParty(data.party, data.active_idx);
+      renderEnemy(data.enemy);
+      appendLog(data.log);
+
+      if (action === 'switch') {
+        // ユーザー発の交代 → 一度だけ交代して通常モードへ
+        isSwitchMode = false;
+        setControlsEnabled(true);
+        reserveEls.forEach(el => el.classList.remove('selectable'));
+      } else {
+        // 強制交代 (戦闘不能など) → ユーザーが選ぶまで交代モード継続
+        isSwitchMode = true;
+        aliveIndices = data.alive_idxs;
+        setControlsEnabled(false);
+        reserveEls.forEach(el => {
+          const idx = parseInt(el.dataset.idx, 10);
+          el.classList.toggle('selectable', aliveIndices.includes(idx));
+        });
+      }
+      return;
+    }
+
+    
+
+    // 通常攻撃・必殺技後の更新
+    isSwitchMode = false;
+    setControlsEnabled(true);
+    reserveEls.forEach(el => el.classList.remove('selectable'));
+
+    
+  }
+
+  // イベント登録
+  btnAttack.addEventListener('click',    () => sendAction('attack'));
+  btnSpecial.addEventListener('click',   () => sendAction('special-attack'));
+  btnSurrender.addEventListener('click', () => sendAction('surrender'));
+
+  btnSwitch.addEventListener('click', () => {
+    // 「控え(idx>0)かつHP>0」を抽出
+    const possible = window.latestParty
+      .map((m, idx) => (idx > 0 && m.hp > 0) ? idx : null)
+      .filter(idx => idx !== null);
+
+    if (possible.length === 0) {
+      appendLog(["交代できるモンスターがいません!"]);
+      return;
+    }
+
+    isSwitchMode = true;
+    aliveIndices = possible;
+    reserveEls.forEach(el => {
+      const idx = parseInt(el.dataset.idx, 10);
+      el.classList.toggle('selectable', aliveIndices.includes(idx));
+    });
+    appendLog(["交代するキャラをクリックしてください"]);
+    setControlsEnabled(false);
+  });
+
+  reserveEls.forEach(el => {
+    el.addEventListener('click', () => {
+      if (!isSwitchMode) return;
+      const idx = parseInt(el.dataset.idx, 10);
+      if (!aliveIndices.includes(idx)) return;
+      sendAction('switch', idx);
+    });
+  });
+
+  // 初期化
+  setControlsEnabled(true);
+  window.latestBattleNo = {{ battle_no }};
+  renderParty({{ party|safe }}, {{ active_idx }});
+  renderEnemy({{ enemy|safe }});
+
+  const initStatuses = {{ party|safe }}[{{ active_idx }}].statuses || [];
+  btnSpecial.disabled = initStatuses.some(s => s.type === 'SpecialCooldown');
+  setControlsEnabled(true);
+
+});
+
+  
+</script>
+{% endblock %}
+
+
+

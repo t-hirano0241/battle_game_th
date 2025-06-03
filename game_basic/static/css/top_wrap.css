@@ -1,0 +1,142 @@
+body {
+  background-color: #2F2F2F;
+  color: #FFFFFF;
+  font-family: 'Noto Sans JP', sans-serif;
+  margin:0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.top-container {
+  background-color: #383838;
+  border-radius: 10px;
+  padding: 40px;
+  width: 800px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  text-align: center;
+  margin-top:60px;
+  color: #fff;
+}
+
+.top-container h1 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+
+.mypage {
+    width: 150px;
+    height:60px;
+    line-height: 60px;
+    padding: 0 15px;
+    font-size: 1rem;
+    background-color: transparent;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    
+}
+
+.mypage a {
+    color: inherit; /* 親要素の文字色を継承 */
+    text-decoration: none;
+    display: block; /* リンク範囲をボタン全体に広げる */
+}
+
+.mypage:hover {
+    background-color: #FFFFFF;
+    color: #383838;
+}
+
+.mypage:hover a {
+    color: #383838; /* ホバー時の文字色を明示的に指定 */
+}
+
+.timeranking {
+    width: 180px;
+    height:60px;
+    line-height: 60px;
+    padding: 0 15px;
+    font-size: 1rem;
+    background-color: transparent;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.timeranking a{
+    text-decoration: none;
+    display: block;
+    color:inherit
+}
+
+.timeranking:hover{
+    background-color: #FFFFFF;
+    color: #383838;
+}
+
+.timeranking:hover a{
+    color:#383838
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 35px;
+}
+
+
+
+.nav-links a:hover {
+  border-bottom: 1px solid #FFFFFF;
+}
+
+.btn-red {
+  display: block;
+  width: 180px;
+  margin: 20px auto;
+  padding: 10px 15px;
+  font-size: 1rem;
+  background-color: #FF0000;
+  color: #FFFFFF;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.btn-red:hover {
+  background-color: #D60000;
+}
+
+.logout-form {
+  margin-top: 20px;
+}
+
+.logout-form button {
+  width: 180px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  background-color: transparent;
+  color: #FFFFFF;
+  border: 2px solid #FFFFFF;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.logout-form button:hover {
+  background-color: #FFFFFF;
+  color: #383838;
+}
