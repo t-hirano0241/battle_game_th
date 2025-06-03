@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/top_wrap.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="top-container">
+  <h1>ようこそ、{{ request.user.username }}さん</h1>
+  <p class="subtitle">バトルに挑戦して、最速タイムを目指そう!</p>
+
+  <div class="nav-links">
+    <div class="mypage">
+    <a href="{% url 'login_app:profile_form' %}">マイページ</a>
+    </div>
+    <div class="timeranking">
+    <a href="{% url 'login_app:time_attack_ranking' %}">タイムランキング</a>
+    </div>
+  </div>
+
+  <a href="{% url 'battle_app:battle_start' %}" class="btn-red">バトル開始</a>
+
+  <form action="{% url 'logout' %}" method="post" class="logout-form">
+    {% csrf_token %}
+    <button type="submit">ログアウト</button>
+  </form> <!-- ここを追加 -->
+</div>
+{% endblock %}

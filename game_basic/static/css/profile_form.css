@@ -1,2 +1,95 @@
+/* 全体レイアウト */
+body {
+  background-color: #2F2F2F;
+  color: #FFFFFF;
+  font-family: 'Noto Sans JP', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* コンテナ */
+.profile-container {
+  background-color: #383838;
+  border-radius: 10px;
+  padding: 40px 30px;
+  margin-top:60px;
+  width: 480px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  text-align: center;
+  color:#fff;
+}
+
+/* 見出し */
+.profile-container h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
 
 
+
+/* フォーム内ラベル */
+.profile-container p,
+.profile-container label {
+  font-size: 1rem;
+  margin: 12px 0 6px;
+  text-align: center;
+}
+
+.profile-container label{
+    margin-bottom:15px;
+}
+
+/* 入力欄（プルダウン） */
+.profile-container select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  color: #000;
+  background-color: #E8D8D8; /* 薄いベージュ */
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  appearance: none;
+}
+
+/* ボタン共通 */
+.profile-container .btn,
+.profile-container .back-link {
+  display: block;
+  width: 100%;
+  padding: 12px 0;
+  font-size: 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  margin: 12px 0;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* 作成・更新ボタン */
+.profile-container .btn {
+  background-color: transparent;
+  color: #FFFFFF;
+  border: 2px solid #FFFFFF;
+}
+
+.profile-container .btn:hover {
+  background-color: #FFFFFF;
+  color: #383838;
+}
+
+/* 戻るリンク */
+.profile-container .back-link {
+  background-color: transparent;
+  color: #FFFFFF;
+  border: 2px solid #FFFFFF;
+}
+
+.profile-container .back-link:hover {
+  background-color: #FFFFFF;
+  color: #383838;
+}

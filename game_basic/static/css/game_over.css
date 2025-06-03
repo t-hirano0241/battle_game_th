@@ -1,0 +1,83 @@
+/* ─── game_over.css ─── */
+
+/* ─── リセット ─── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── 背景 & フォント ─── */
+body {
+  background: url("/static/images/bg-game.jpg") no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Press Start 2P', monospace;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000;
+}
+
+main{
+  color: #fff;
+}
+
+/* ─── 中央コンテナ ─── */
+.game-over-container {
+  max-width: 800px;
+  margin: 5rem auto;
+  padding: 2rem 3rem;
+  background: rgba(0, 0, 0, 0.85);
+  border: 3px solid #fff;
+  border-radius: 12px;
+  text-align: center;
+}
+
+/* ─── 見出し ─── */
+.game-over-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+/* ─── 説明文 ─── */
+.game-over-container p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ─── リンク／ボタン共通 ─── */
+.game-over-container a.button,
+.game-over-container form.logout-form button {
+  display: block;
+  width: 60%;
+  max-width: 300px;
+  margin: 1rem auto 0;
+  padding: 1rem;
+  font-size: 1rem;
+  background: #222;
+  color: #fff;
+  border: 3px solid #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+/* ─── ホバー／アクティブ時 ─── */
+.game-over-container a.button:hover,
+.game-over-container form.logout-form button:hover {
+  background: #444;
+  transform: translateY(-2px);
+}
+.game-over-container a.button:active,
+.game-over-container form.logout-form button:active {
+  transform: translateY(0);
+}
+
+/* ─── ログアウトボタンの色差し替え ─── */
+.game-over-container form.logout-form button {
+  background: #800;
+  border-color: #f88;
+}
+.game-over-container form.logout-form button:hover {
+  background: #a33;
+}

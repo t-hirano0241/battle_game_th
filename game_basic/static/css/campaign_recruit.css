@@ -1,0 +1,132 @@
+/* ─── 共通リセット ─── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Press Start 2P', monospace;
+  background: url("/static/images/bg-game.jpg") no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+
+/* ─── リクルートフォーム全体 ─── */
+.recruit-form {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.85);
+  border: 3px solid #fff;
+  border-radius: 12px;
+  text-align: center;
+}
+
+/* ─── タイトル／サブタイトル ─── */
+.form-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.form-subtitle {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+/* ─── モンスター画像 ─── */
+.monster-display {
+  margin-bottom: 1.5rem;
+}
+.monster-image {
+  width: 240px;
+  border: 2px solid #fff;
+  border-radius: 8px;
+}
+
+/* ─── 情報テーブル ─── */
+.info-table {
+
+  margin: 0 auto 2rem;
+  color: #fff;
+  border-collapse: separate;
+  border-spacing: 0 1rem;
+}
+.info-table th,
+.info-table td {
+  text-align: left;
+  padding: 0.5rem 1rem;
+}
+.info-table th {
+  width: 30%;
+  font-weight: bold;
+  opacity: 0.9;
+  text-align: center;
+}
+.info-table td {
+  width: 300px;
+}
+
+/* ─── 即時アクションボタン ─── */
+.btn {
+  display: block;
+  width: 60%;
+  max-width: 300px;
+  margin: 1rem auto;
+  padding: 1rem;
+  font-size: 1.1rem;
+  background: #333;
+  color: #fff;
+  border: 3px solid #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn:hover {
+  background: #555;
+  transform: translateY(-2px);
+}
+
+/* ─── 「逃がす」セクション ─── */
+.drop-section {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #f88;
+}
+.drop-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+.drop-list form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.drop-list input[type="radio"] {
+  display: none;
+}
+.drop-list label {
+  width: 250px;
+  cursor: pointer;
+  padding: 0.6rem 1.2rem;
+  border: 2px solid #f88;
+  border-radius: 20px;
+  color: #f88;
+  transition: background 0.2s, color 0.2s;
+}
+.drop-list label:hover,
+.drop-list input[type="radio"]:checked + label {
+  background: #f88;
+  color: #fff;
+}
+
+/* ─── モバイル最適化 ─── */
+@media (max-width: 600px) {
+  .monster-image { width: 180px; }
+  .info-table th, .info-table td { padding: 0.4rem 0.8rem; }
+  .btn { width: 80%; }
+}

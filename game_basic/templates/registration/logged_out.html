@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/logout.css' %}">
+{% endblock %}
+
 {% block page_title %}ログアウト{% endblock %}
-{% block page_header %}ログアウト{% endblock %}
+
+
+
 
 {% block content %}
-	<p>ゲームを終了しました!</p>
-	<p>また遊びに来てください!</p>
-	
-	
-<p><a href="{% url 'login' %}">再ログイン</a></p>
+<div class="auth-container">
+  <h1>ログアウト</h1>
+  <p class="lead">ゲームを終了しました！</p>
+  <p class="lead">また遊びに来てください！</p>
+  <a href="{% url 'login' %}" class="btn">再ログイン</a>
+</div>
 {% endblock %}

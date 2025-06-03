@@ -1,0 +1,74 @@
+/* カードコンテナ */
+.ranking-card {
+  background-color: #383838;
+  border-radius: 10px;
+  padding: 40px 30px;
+  width: 90%;
+  max-width: 800px;
+  margin: 3rem auto;         /* 上下余白 */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+/* カード内タイトル */
+.ranking-card h2 {
+  margin-top: 0;
+  font-size: 1.75rem;
+  color: #FFF;
+  margin-bottom: 1.5rem;
+}
+
+/* テーブルコンテナ */
+.table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 2rem;
+}
+
+/* テーブル */
+.ranking-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.ranking-table th,
+.ranking-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #555;
+  font-size: 0.95rem;
+  color: #FFF;
+}
+.ranking-table thead th {
+  font-weight: bold;
+}
+.ranking-table tbody tr:nth-child(even) {
+  background-color: rgba(255,255,255,0.05);
+}
+
+/* ページネーション */
+.pagination {
+  margin-bottom: 2rem;
+}
+.pagination a {
+  color: #FFF;
+  text-decoration: none;
+  margin: 0 1rem;
+}
+
+/* ボタン群 */
+.btn-group {
+  margin-bottom: 0;
+}
+.btn-black {
+  display: inline-block;
+  padding: 0.75rem 2.5rem;
+  font-size: 1rem;
+  background-color: transparent;
+  color: #FFF;
+  border: 2px solid #FFF;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+.btn-black:hover {
+  background-color: #FFF;
+  color: #383838;
+}

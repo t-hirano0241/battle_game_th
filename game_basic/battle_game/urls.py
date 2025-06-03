@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from login_app.views import UsernameResetView, CustomPasswordResetConfirmView
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -47,6 +49,7 @@ urlpatterns = [
     ),
    
     path('accounts/', include('django.contrib.auth.urls')),
-
-
+    path("battle_app/",include(("battle_app.urls","battle_app"),namespace="battle_app")),
+   
 ]
+urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,113 @@
+/* ─── login.css ─── */
+
+body {
+  background: url("/static/images/bg-game.jpg") no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Press Start 2P', monospace;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000;
+  margin: 0;
+}
+
+#content {
+  max-width: 1200px;   
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* フォームをさらに目立たせる */
+.login-form {
+  max-width: 1000px;      
+  width: 100%;           /* ビューポート幅いっぱいに近い */
+  margin: 3rem auto;     /* 上下余白を増やす */
+  padding: 3rem;         /* パディングを広く */
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 12px;
+}
+
+/* タイトルを大きく */
+.login-form h1,
+.login-form .login-title {
+  font-size: 2rem;       /* ← 1.5rem → 2rem に */
+  margin-bottom: 2rem;   /* 余白を広げる */
+  text-align: center;
+  color: #fff;
+}
+
+.login-subtitle{
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* テーブル間隔 */
+.login-form table {
+  display: flex;
+  justify-content: left;
+  color:#fff;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 1.5rem;  /* 行間をさらに広げる */
+  table-layout: fixed;
+  padding-left: 6rem;
+}
+
+/* ラベル列 */
+.login-form th {
+  width: 30%;
+  padding-right: 1rem;    /* ラベルとの距離を広げる */
+  text-align: right;
+  font-size: 1rem;        /* ラベル文字を大きく */
+}
+
+/* 入力欄列 */
+.login-form td {
+  width: 70%;
+  padding-left: 1rem;
+}
+
+/* 入力フィールドをさらに大きく */
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  width: 100%;
+  background: #222;
+  color: #fff;
+  border: 2px solid #fff;     /* 枠を太く */
+  padding: 1rem;              /* 高さをアップ */
+  font-family: inherit;
+  font-size: 1.2rem;          /* 文字サイズを大きく */
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+/* エラーメッセージ */
+.login-form .help,
+.login-form .errorlist {
+  color: #f88;
+  margin: 0.75rem 0 0;
+  font-size: 0.9rem;
+}
+
+/* ボタンを大きく */
+.login-form button,
+.login-form a.btn {
+  display: block;
+  width: 60%;               /* 固定幅 or 好きな%指定 */
+  max-width: 300px;         /* 最大横幅を指定 */
+  margin: 2rem auto 0;      /* 上部余白を広げる */
+  padding: 1rem;            /* 高さと横幅をアップ */
+  font-size: 1.2rem;        /* ボタン文字を大きく */
+  background: #222;
+  color: #fff;
+  border: 3px solid #fff;   /* ボーダーも太めに */
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+
+.login-form button:hover,
+.login-form a.btn:hover {
+  background: #444;
+}

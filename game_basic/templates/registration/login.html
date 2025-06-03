@@ -1,22 +1,74 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
 
 {% block page_title %}ログイン{% endblock %}
-{% block page_header %}ログイン{% endblock %}
 
 {% block content %}
-  <form method="post">
+<div id="content">
+  <form method="post" class="login-form">
     {% csrf_token %}
+    <h1 class="login-title">ログイン</h1>
+    <p class="login-subtitle">ログインして、バトルを始めよう!!</p>
+
     <table>
-      {{ form.as_table }}
+      <!-- ユーザー名行 -->
+      <tr>
+        <th>
+          <label for="{{ form.username.id_for_label }}">ユーザー名:</label>
+        </th>
+        <td>
+          {{ form.username }}
+          {% if form.username.errors %}
+            <div class="errorlist">{{ form.username.errors }}</div>
+          {% endif %}
+        </td>
+      </tr>
+
+      <!-- パスワード行 -->
+      <tr>
+        <th>
+          <label for="{{ form.password.id_for_label }}">パスワード:</label>
+        </th>
+        <td style="position: relative;">
+          {{ form.password }}
+          <i class="toggle-eye fa fa-eye"
+             data-target="{{ form.password.id_for_label }}"
+             style="position:absolute; right:0.5rem; top:50%; transform:translateY(-50%); cursor:pointer;">
+          </i>
+          {% if form.password.errors %}
+            <div class="errorlist">{{ form.password.errors }}</div>
+          {% endif %}
+        </td>
+      </tr>
     </table>
+
     <button type="submit">ログイン</button>
+    <a href="{% url 'login_app:signup_create' %}" class="btn">新規登録</a>
+    <a href="{% url 'password_reset' %}" class="btn">パスワード再設定</a>
   </form>
+</div>
+{% endblock %}
 
-  <p>アカウントをお持ちでない方は下記のボタンから、新規登録を行ってください!</p>
-  <a href="{% url 'login_app:signup_create' %}">新規登録</a>
-
-
-  <p>パスワードを忘れた方は下記のボタンから、パスワードの再設定をしてください</p>
- <a href="{% url 'password_reset' %}">パスワード再設定</a>
-
+{% block extra_js %}
+<script>
+  // パスワード見える化トグル
+  document.querySelectorAll('.toggle-eye').forEach(el => {
+    el.addEventListener('click', () => {
+      const target = document.getElementById(el.dataset.target);
+      if (!target) return;
+      if (target.type === 'password') {
+        target.type = 'text';
+        el.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        target.type = 'password';
+        el.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    });
+  });
+</script>
 {% endblock %}

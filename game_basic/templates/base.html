@@ -31,9 +31,12 @@
 	</header>
 	<main>
   <div id="content">
+    {% block wrap %}{% endblock %}
     {% block content %}{% endblock %}
+
   </div>
   </main>
+
 {% block extra_js %}{% endblock %}
 </body>
 </html>

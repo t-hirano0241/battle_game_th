@@ -1,0 +1,24 @@
+.mon_detail{
+    display: none;
+}
+
+.mon_content:hover + .mon_detail{
+    display: block;
+}
+
+.mon_cards{
+    display: flex;
+
+}
+
+.mon_content{
+    width: 25%;
+}
+
+.mon_card{
+    width:100%;
+}
+
+.mon_card img{
+    width: 100%;
+}
